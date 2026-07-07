@@ -36,3 +36,20 @@ So now, that we know the device type, we can ask FFmpeg to use hardware accelera
 ffmpeg -hwaccel hardware_type -i input.mp4 -vf "crop=w:h:x:y" output.mp4
 ```
 , where `hardware_type` is the supported hardware device type. This can be `videotoolbox` for Apple M processors or `vaapi` for Intel, etc.
+
+### Scale a video
+
+To scale a video, we can use the same `-vf` key, but specifying that we are using a scaling filter instead of a cropping filter:
+```
+ffmpeg -i input.mp4 -vf "scale=w:h" output.mp4
+```
+, or:
+```
+ffmpeg -i input.mp4 -vf "scale=w:-1" output.mp4
+```
+, where `-1` tells FFmpeg to keep the aspect ratio of the video.
+
+And with hardware acceleration:
+```
+ffmpeg -hwaccel hardware_type -i input.mp4 -vf "scale=w:-1" output.mp4
+```
