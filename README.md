@@ -53,3 +53,24 @@ And with hardware acceleration:
 ```
 ffmpeg -hwaccel hardware_type -i input.mp4 -vf "scale=w:-1" output.mp4
 ```
+
+### Cut a video
+
+To cut off everything after the timestamp, we can use the `-t` key as the input file option:
+```
+ffmpeg -t hh:mm:ss -i input.mp4 -c copy output.mp4
+```
+, where `hh` is the hours, `mm` is the minutes, and `ss` is the seconds in a format like 00:00:00.
+
+> Note: the `-t` key is applied to the input file for performance, as it only reads part of the video before the timestamp, not the entire file.
+
+> Note: the `-c copy` option is used for performance, as it tells FFmpeg not to re-encode the file.
+
+To cut off everything before the timestamp, we can use the `-ss` key as the input file option:
+```
+ffmpeg -ss hh:mm:ss -i input.mp4 -c copy output.mp4
+```
+To save a part of a video between two timestamps:
+```
+ffmpeg -ss hh:mm:ss -t hh:mm:ss -i input.mp4 -c copy output.mp4
+```
