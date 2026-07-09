@@ -74,3 +74,17 @@ To save a part of a video between two timestamps:
 ```
 ffmpeg -ss hh:mm:ss -t hh:mm:ss -i input.mp4 -c copy output.mp4
 ```
+
+### Take a screenshot
+
+To take a screenshot of a video at a timestamp, we can use the `-frames:v` option and tell FFmpeg to convert the video to an image:
+```
+ffmpeg -ss hh:mm:ss -i input.mp4 -frames:v 1 output.jpeg
+```
+To take a series of screenshots, we need to use the fps filter instead of the `-frames:v` option:
+```
+ffmpeg -ss hh:mm:ss -t hh:mm:ss -i input.mp4 -vf "fps=1" output%.jpeg
+```
+The command will take one screenshot every second between the two timestamps.
+
+> Note: the difference between `-frames:v 1` and `-vf "fps=1"` is that the first parameter tells FFmpeg how many frames to take in total, and the second tells how many frames to take per second.
